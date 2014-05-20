@@ -979,6 +979,29 @@ def exclusion(parser, xml_parent, data):
         XML.SubElement(dit, 'name').text = str(resource).upper()
 
 
+def nodejs(parser, xml_parent, data):
+    """yaml: nodejs
+    Set the Node.js implementation.
+    Requires the Jenkins `Node.js Plugin.
+    <https://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin>`_
+
+    :arg string installation: Node.js installation
+
+    Examples::
+
+      nodejs:
+        installation: 0.10.26
+
+    """
+    wrapper = XML.SubElement(
+        xml_parent,
+        'jenkins.plugins.nodejs.tools.NpmPackagesBuildWrapper')
+
+    XML.SubElement(
+        wrapper,
+        'nodeJSInstallationName').text = data.get('installation', '')
+
+
 class Wrappers(jenkins_jobs.modules.base.Base):
     sequence = 80
 
